@@ -1,0 +1,44 @@
+label {
+    margin-right: 10px;
+    background-color: transparent !important;
+}
+
+.input-text{
+    border:4px solid;
+    color:#b9954d;
+    border-color:#54c983c3;
+    transition: border-color 0.3s ease-out ;
+    outline:none;
+    width:100%;
+    border-radius:8px;
+    box-sizing:border-box; /* ensure's that padding doesn't increase the overall width.*/
+    padding: 0 12px;
+    height:45px;
+
+}
+.input-text:hover{
+    border-color:#90c95a;
+    border-blur:6px;
+    transiton: border-color 0.1s ease-in;
+
+}
+select{
+    padding: 0 12px;
+    margin-top:10px;
+    outline:none;
+    border:1px solid;
+    border-radius:8px;
+    border-color:#54c983c3;
+    color:#b9954d;
+    gap:5px;
+    padding: 10px 15px; /* Vertical | Horizontal */
+    appearance: none;
+
+}
+
+select:hover{
+    border-color:#90c95a;
+    border-blur:6px;
+    transition:0.5s;
+}
+

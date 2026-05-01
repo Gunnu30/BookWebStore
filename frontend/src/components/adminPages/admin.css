@@ -1,0 +1,134 @@
+/* admin.css */
+
+/* Base transitions for the card */
+.admin-operation-card {
+    will-change: transform, box-shadow;
+}
+.main-operation-container{
+    padding-top:5px;
+    padding-left:10px;
+    padding-right:10px;
+    padding-bottom:5px;
+
+}
+
+.each-container-operation{
+    display:flex;
+    padding-top:10px;
+    padding-left:8px;
+    width:100%;
+}
+/* Small Screen Arrow Logic (Mobile/Tablet) */
+.operation-arrow-small {
+    font-size: 1.125rem; /* text-lg */
+    transition: all 0.3s ease;
+    width:100%;
+        height:100%;
+}
+
+.admin-operation-card:hover .operation-arrow-small {
+    transform: translateX(4px);
+}
+
+/* Large Screen Arrow Logic (Desktop) */
+.operation-arrow-large {
+    display: none; /* Hidden by default */
+    position: absolute;
+    right: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 2.25rem; /* text-4xl */
+    transition: all 0.3s ease;
+}
+
+.admin-operation-card:hover .operation-arrow-large {
+    transform: translateY(-50%) translateX(8px);
+}
+
+/* Responsive Handling */
+@media (min-width: 501px) {
+    /* Hide the small arrow on large screens */
+    .operation-arrow-small {
+        display: none !important;
+    }
+
+    /* Show the large arrow on large screens */
+    .operation-arrow-large {
+        display: flex;
+
+    }
+
+    /* Add extra padding to the content so it doesn't hit the big arrow */
+    .card-content-wrapper {
+        padding-right: 3.5rem;
+    }
+}
+
+@media (max-width: 500px) {
+    /* Ensure big arrow is hidden if screen is smaller than 1024px */
+    .operation-arrow-large {
+        display: none !important;
+    }
+    
+    .operation-arrow-small {
+        display: flex;
+        flex-direction:column;
+        justify-content:center;
+        align-items:flex-right;
+        
+        margin-right:5px;
+    }
+    .main-operation-container{
+        padding:5px;
+    }
+    
+}
+
+//->add-book page css
+
+.add-book-card {
+    padding:20px;
+}
+.options-card {
+    padding: 10px;
+    /* This is the only property you need for scrolling */
+    overflow-y: auto; 
+
+}
+
+.add-genre-btn{
+    padding:8px;
+    cursor:pointer;
+    margin-top:10px;
+}
+
+.remove-genre-btn{
+    color:#b60606;
+    border:none;
+    font-size:20px;
+    cursor:pointer;
+}
+.remove-genre-btn:hover{
+    text-shadow:0px 0px 5px #3b0808;
+}
+.left-card-section{
+    padding:20px;
+
+}
+
+@media (max-width:550px){
+    .add-book-card{
+        flex-direction:column;
+        justify-content:center;
+        align-items:center;
+        width:100%;
+        padding:8px;
+    }
+    .add-genre-btn{
+        padding:10px;
+        margin-top:0px;
+    }
+    .left-card-section{
+        padding:3px;
+    }
+}

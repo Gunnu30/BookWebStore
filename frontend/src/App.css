@@ -1,0 +1,7 @@
+@import "tailwindcss";
+/* Instead of resetting border globally */
+* {
+  margin: 0;
+  padding: 0;
+}
+/* Avoid resetting border universally */

@@ -1,0 +1,171 @@
+/* Logout Button - No Background */
+.logout-btn {
+  background: none;   /* ensures no background */
+  border: 1px solid #d10707;
+  border-radius: 20px;
+  padding: 6px 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: 0.2s;
+  color: #d10707; /* default text/icon color */
+}
+
+/* Light/Dark Mode Variants */
+.logout-btn.light { color: #d10707; }
+.logout-btn.dark { color: #ffffff; }
+
+/* Hover - only change text/icon color */
+.logout-btn:hover {
+  background-color: #d10707;
+  color:#ffffff;
+}
+
+.navbar {
+  width: 100%;
+  position: sticky;
+  z-index:1000;
+  top: 0;
+  transition: all 0.3s ease;
+}
+
+.navbar-container {
+  min-width:100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 70px;
+  padding: 0 1.5rem;
+}
+
+.nav-content {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* Base Links Style */
+.navbar-links {
+  display: flex;
+  align-items:center;
+  list-style: none;
+  gap: 25px;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-links a {
+  text-decoration: none;
+  font-weight: 500;
+  color: inherit;
+  font-size: 1rem;
+}
+
+/* Theme Colors for Navbar & Links */
+.navbar.light, .navbar-links.light {
+  background-color: #ffffff;
+  color: #1a1a1a;
+}
+
+.navbar.dark, .navbar-links.dark {
+  color: #d4af37;
+}
+
+.navbar.dark { border-bottom: 2px solid #1f2937; }
+.navbar.light { border-bottom: 1px solid #e2e8f0; }
+
+/* Toggle Button */
+.theme-toggle-desktop {
+  background: none;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+  color: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mobile-menu-icon, .mobile-theme-item { display: none; }
+
+/* MOBILE RESPONSIVE (The "Screening" Section) */
+@media (max-width: 730px) {
+  .theme-toggle-desktop { display: none; }
+  .mobile-menu-icon { display: block !important; cursor: pointer; font-size: 1.5rem; background: none; border: none; color: inherit; }
+  .mobile-theme-item { display: block; }
+
+  .navbar-links {
+    display: none; /* Hide by default on mobile */
+    position: absolute;
+    top: 70px;
+    left: 0;
+    width: 100%;
+    flex-direction: column;
+    gap: 0;
+    box-shadow: 0 10px 15px rgba(0,0,0,0.2);
+    z-index: 1001;
+  }
+  .banner-container{
+    flex-direction:column;
+    padding-left:3px;
+    padding-right:3px;
+    font-size:10px;
+  }
+  .banner-text-container{
+    order:2;
+  }
+  .banner-imag-container{
+    order:1;
+  }
+
+  /* ✅ This forces the menu to show and use the right background color */
+  .navbar-links.active {
+    display: flex !important;
+  }
+
+  .navbar-links li {
+    width: 100%;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    text-align: center;
+  }
+
+  .navbar-links a, .mobile-theme-item button {
+    display: block;
+    padding: 1.2rem;
+    width: 100%;
+    background: none;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+  }
+}
+
+.banner-container{
+  display:flex;
+  height:calc(100vh - 200px);
+  justify-content: space-around;
+  width: 100%; /* Ensure there is extra space to distribute */
+  align-items:center;
+  padding-left:15px;
+  padding-right:15px;
+}
+
+.footer{
+  display:flex;
+  flex-direction:column;
+  justify-content:space-around;
+  hieght:130px;
+  width:100%;
+  align-items:center;
+}
+.footer-links{
+  display:flex;
+  justify-content:space-around;
+  width:300px;
+}
+
+.heart-button{
+  margin-bottom:3px;
+}
