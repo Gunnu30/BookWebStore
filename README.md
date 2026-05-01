@@ -33,6 +33,57 @@ A full-stack online bookstore application with separate backend and frontend pro
 - Supabase-backed data storage for users, books, genres, and cart items
 - Theme toggle support and global styling
 
+## 📂 Book by Category
+
+The frontend allows users to browse books by selecting a genre from a dropdown.  
+When a genre is selected, the app calls:
+
+
+### How Filtering Works
+- The backend looks up the `book_genres` table for rows where `genre_id = :genreId`.
+- It collects all matching `book_id` values.
+- It then fetches the corresponding book details from the `books` table.
+- The result is a list of books filtered by the chosen category.
+
+### Relevance Score
+- The `book_genres` table includes a `score` column (integer).
+- This score represents how strongly a book belongs to a given genre:
+  - Higher scores = more relevant.
+  - Lower scores = loosely related.
+- The backend includes this score in the response as `relevanceScore`.
+- The frontend sorts books by `relevanceScore` descending and displays it as a badge (★ `score/10`) on each book card.
+
+### Example Response
+```json
+{
+  "listBooks": [
+    {
+      "id": 1,
+      "title": "Romantic Tales",
+      "author": "Author A",
+      "price": 299,
+      "cover_url": "https://...",
+      "description": "A love story...",
+      "relevanceScore": 9
+    },
+    {
+      "id": 2,
+      "title": "Psychology Basics",
+      "author": "Author B",
+      "price": 399,
+      "cover_url": "https://...",
+      "description": "Intro to psychology...",
+      "relevanceScore": 5
+    }
+  ]
+}
+
+---
+
+This section makes it clear how your **category filtering** and **relevance scoring** work, both for developers and contributors.  
+
+👉 Would you like me to also draft a **diagram (ASCII or markdown table)** showing the relationship between `books`, `book_genres`, and `genres` so your README visually explains the filtering logic?
+```
 ## API Endpoints
 
 ### Auth
