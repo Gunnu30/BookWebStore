@@ -32,21 +32,21 @@ exports.addBookGenres = async (bookId,genres) =>{
         let res = []
         for(let i = 0;i<len;i++){
 
-            const {genre_id , genre , score} = genres[i];
+            const {genre_id , score} = genres[i];
             const {data ,error}= await supabase
             .from("book_genres")
             .insert({
                 book_id:bookId,
                 genre_id:genre_id,
-                genre_name:genre,
                 score:score
             });
             if(error)throw error;
-            res.add(data[0]);
+            res.push(data[0]);
         }
         return res;
     }catch(err){
         console.log("error",err)
+        throw err;
     }
 }
 
@@ -80,16 +80,69 @@ exports.getBookById = async (id) =>{
     }
 }
 exports.getAllGenres = async (id) => {
+    console.log("getAllGenres called with id:", id, "type:", typeof id);
   try {
-    const { data, error } = await supabase
+    // Get all book_ids AND scores for this genre
+    const { data: genreRows, error: genreError } = await supabase
       .from("book_genres")
-      .select("*")
+      .select("book_id,score")
       .eq("genre_id", String(id));
-    if (error) throw error;
-    console.log(data)
-    return data; // ✅ return the array
+
+    if (genreError) {
+      console.error("Error in Step 1 (genreRows query):", genreError);
+      throw genreError;
+    }
+    console.log("Step 1 - genreRows:", genreRows);
+
+    if (!genreRows || genreRows.length === 0) {
+      console.log(`No books found for genre ${id}`);
+      return [];
+    }
+
+    const bookIds = genreRows
+      .map((row) => row.book_id)
+      .filter((bid) => bid !== null && bid !== undefined);
+    
+    // Create a map of bookId -> score for later attachment
+    const scoreMap = {};
+    genreRows.forEach((row) => {
+      scoreMap[row.book_id] = row.score || 0;
+    });
+    
+    console.log("Step 1 - Extracted bookIds:", bookIds, "count:", bookIds.length);
+
+    if (bookIds.length === 0) {
+      console.log("After filtering, no valid bookIds remain");
+      return [];
+    }
+
+    const numericBookIds = bookIds.map((id) => 
+      isNaN(id) ? id : Number(id)
+    );
+    console.log("Step 2 - Query with bookIds:", numericBookIds);
+
+    const { data: books, error: booksError } = await supabase
+      .from("books")
+      .select("id,title,author,price,cover_url,description")
+      .in("id", numericBookIds);
+
+    if (booksError) {
+      console.error("Error in Step 2 (books query):", booksError);
+      throw booksError;
+    }
+
+    // Attach scores to each book
+    const booksWithScore = (books || []).map((book) => ({
+      ...book,
+      relevanceScore: scoreMap[book.id] || 0
+    }));
+
+    console.log("Step 2 - Books fetched:", booksWithScore?.length, "books");
+    console.log("Books data:", booksWithScore);
+
+    return booksWithScore || [];
   } catch (e) {
-    console.error("Supabase error:", e.message);
+    console.error("Supabase error in getAllGenres:", e.message, e);
     throw e;
   }
 };

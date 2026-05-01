@@ -34,13 +34,11 @@ exports.getById = async (req, res) => {
 exports.allGenres = async (req, res) => {
   const { genreId } = req.params;
   try {
+    console.log(genreId)
     const data = await booksModel.getAllGenres(genreId);
-    if (!data || data.length === 0) {
-      return res.status(404).json({ message: "No books found for this genre" });
-    }
-    res.json({ listBooks: data });
+    return res.status(200).json({ listBooks: data || [] });
   } catch (e) {
     console.error(e);
-    res.status(500).json({ error: "Server error" });
+    return res.status(500).json({ error: "Server error" });
   }
 };
